@@ -90,7 +90,7 @@ class VeritransBca extends PaymentModule
 		Configuration::set('VC_PAYMENT_TYPE','vtweb');
 
 		if (!isset($config['VC_SANITIZED']))
-			Configuration::set('VC_SANITIZED', 0);	
+			Configuration::set('VC_SANITIZED', 1);	
 
 		parent::__construct();
 
@@ -340,25 +340,25 @@ class VeritransBca extends PaymentModule
 						'desc' => 'You must enable 3D Secure. Please contact us if you wish to disable this feature in the Production environment.'
 						//'class' => ''
 						),
-					array(
-						'type' => (version_compare(Configuration::get('PS_VERSION_DB'), '1.6') == -1)?'radio':'switch',
-						'label' => 'Enable sanitization',
-						'name' => 'VC_SANITIZED',						
-						'is_bool' => true,
-						'values' => array(
-							array(
-								'id' => 'sanitized_yes',
-								'value' => 1,
-								'label' => 'Yes'
-								),
-							array(
-								'id' => 'sanitized_no',
-								'value' => 0,
-								'label' => 'No'
-								)
-							),
-						//'class' => ''
-						),
+					// array(
+					// 	'type' => (version_compare(Configuration::get('PS_VERSION_DB'), '1.6') == -1)?'radio':'switch',
+					// 	'label' => 'Enable sanitization',
+					// 	'name' => 'VC_SANITIZED',						
+					// 	'is_bool' => true,
+					// 	'values' => array(
+					// 		array(
+					// 			'id' => 'sanitized_yes',
+					// 			'value' => 1,
+					// 			'label' => 'Yes'
+					// 			),
+					// 		array(
+					// 			'id' => 'sanitized_no',
+					// 			'value' => 0,
+					// 			'label' => 'No'
+					// 			)
+					// 		),
+					// 	//'class' => ''
+					// 	),
 					// array(
 					// 	'type' => (version_compare(Configuration::get('PS_VERSION_DB'), '1.6') == -1)?'radio':'switch',
 					// 	'label' => 'Credit Card',
@@ -1176,7 +1176,7 @@ class VeritransBca extends PaymentModule
     	if (Configuration::get('VC_3D_SECURE') == 'on' || Configuration::get('VC_3D_SECURE') == 1)
 			Veritrans_Config::$is3ds = true;		
 
-		if (Configuration::get('VC_SANITIZED') == 'on' || Configuration::get('VC_SANITIZED') == 1)
+		// if (Configuration::get('VC_SANITIZED') == 'on' || Configuration::get('VC_SANITIZED') == 1)
 			Veritrans_Config::$isSanitized = true;
 		
 		//error_log('sanitized '.Configuration::get('VC_SANITIZED'));
