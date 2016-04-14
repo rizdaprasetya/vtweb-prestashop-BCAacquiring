@@ -1,6 +1,6 @@
 <?php
 
-class VeritransBinPromoWarningModuleFrontController extends ModuleFrontController
+class VeritransBcaWarningModuleFrontController extends ModuleFrontController
 {
   /**
    * @see FrontController::initContent()

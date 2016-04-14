@@ -2,7 +2,7 @@
 
 $useSSL = true;
 
-$root_dir = str_replace('modules/veritransbinpromo', '', dirname($_SERVER['SCRIPT_FILENAME']));
+$root_dir = str_replace('modules/veritransbca', '', dirname($_SERVER['SCRIPT_FILENAME']));
 
 include_once($root_dir.'/config/config.inc.php');
 
@@ -13,18 +13,18 @@ if (Tools::usingSecureMode())
 
 $controller->init();
 
-include_once($root_dir.'/modules/veritransbinpromo/veritransbinpromo.php');
+include_once($root_dir.'/modules/veritransbca/veritransbca.php');
 
 if (!$cookie->isLogged(true))
   Tools::redirect('authentication.php?back=order.php');
 elseif (!Customer::getAddressesTotalById((int)($cookie->id_customer)))
   Tools::redirect('address.php?back=order.php?step=1');
 
-$veritransBinPromo = new VeritransBinPromo();
-$keys = $veritransBinPromo->execValidation($cart);
+$veritransBca = new VeritransBca();
+$keys = $veritransBca->execValidation($cart);
 
-$veritrans_api_version = Configuration::get('VB_API_VERSION');
-$veritrans_payment_method = Configuration::get('VB_PAYMENT_TYPE');
+$veritrans_api_version = Configuration::get('VC_API_VERSION');
+$veritrans_payment_method = Configuration::get('VC_PAYMENT_TYPE');
 
 if ($keys['errors'])
 {

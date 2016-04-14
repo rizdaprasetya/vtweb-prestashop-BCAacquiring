@@ -2,7 +2,7 @@
 
 session_start();
 
-class VeritransBinPromoErrorModuleFrontController extends ModuleFrontController
+class VeritransBcaErrorModuleFrontController extends ModuleFrontController
 {
 	public $ssl = true;
 

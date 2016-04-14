@@ -3,7 +3,7 @@
 if (!defined('_PS_VERSION_'))
 	exit;
 
-class VeritransBinPromoInstall
+class VeritransBcaInstall
 {
 	public function createTable()
 	{

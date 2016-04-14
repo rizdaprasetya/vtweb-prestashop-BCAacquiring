@@ -2,10 +2,10 @@
 
 $useSSL = true;
 
-$root_dir = str_replace('modules/veritransbinpromo', '', dirname($_SERVER['SCRIPT_FILENAME']));
+$root_dir = str_replace('modules/veritransbca', '', dirname($_SERVER['SCRIPT_FILENAME']));
 
 include_once($root_dir.'/config/config.inc.php');
-include_once($root_dir.'/modules/veritransbinpromo/veritransbinpromo.php');
+include_once($root_dir.'/modules/veritransbca/veritransbca.php');
 
 function getTransaction($request_id)
 {
@@ -26,5 +26,5 @@ function validate($id_transaction, $id_order, $order_status)
   Db::getInstance()->Execute($sql);
 }
 
-$veritransBinpromo = new VeritransBinPromo();
-$veritransBinpromo->execNotification();
+$veritransBca = new VeritransBca();
+$veritransBca->execNotification();

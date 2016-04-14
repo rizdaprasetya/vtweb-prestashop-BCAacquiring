@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__).'/../../../veritranspay/library/veritrans/Veritrans.php');
 
-class VeritransBinPromoPaymentModuleFrontController extends ModuleFrontController
+class VeritransBcaPaymentModuleFrontController extends ModuleFrontController
 {
   public $ssl = true;
   public $display_column_left = false;
@@ -23,8 +23,8 @@ class VeritransBinPromoPaymentModuleFrontController extends ModuleFrontControlle
       Tools::redirect('index.php?controller=order');
     
     $this->context->smarty->assign(array(
-      'payment_type' => Configuration::get('VB_PAYMENT_TYPE'),
-      'api_version' => Configuration::get('VB_API_VERSION'),
+      'payment_type' => Configuration::get('VC_PAYMENT_TYPE'),
+      'api_version' => Configuration::get('VC_API_VERSION'),
       'error_message' => '',
       'nbProducts' => $cart->nbProducts(),
       'cust_currency' => $cart->id_currency,

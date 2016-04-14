@@ -1,6 +1,6 @@
 <?php
 
-class VeritransBinPromoValidationModuleFrontController extends ModuleFrontController
+class VeritransBcaValidationModuleFrontController extends ModuleFrontController
 {
   public $display_header = false;
   public $display_footer = false;
@@ -13,8 +13,8 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   public function postProcess()
   { 
     $cart = $this->context->cart;
-    $veritransbinpromo = new VeritransBinPromo();
-    $keys = $veritransbinpromo->execValidation($cart);
+    $veritransbca = new VeritransBca();
+    $keys = $veritransbca->execValidation($cart);
 
     // if ($cart->id_customer == 0 || $cart->id_address_delivery == 0 || $cart->id_address_invoice == 0 || !$this->module->active)
     //  Tools::redirect('index.php?controller=order&step=1');
@@ -22,7 +22,7 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
     // // Check that this payment option is still available in case the customer changed his address just before the end of the checkout process
     // $authorized = false;
     // foreach (Module::getPaymentModules() as $module)
-    //  if ($module['name'] == 'veritransbinpromo')
+    //  if ($module['name'] == 'veritransbca')
     //  {
     //    $authorized = true;
     //    break;
@@ -34,8 +34,8 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   //   if (!Validate::isLoadedObject($customer))
   //    Tools::redirect('index.php?controller=order&step=1');
 
-  //    $usd = Configuration::get('VB_KURS');
-  //   $cf = Configuration::get('VB_CONVENIENCE_FEE') * 0.01;
+  //    $usd = Configuration::get('VC_KURS');
+  //   $cf = Configuration::get('VC_CONVENIENCE_FEE') * 0.01;
   //   $veritrans = new Veritrans();
   //   $url = Veritrans_Config::PAYMENT_REDIRECT_URL;
 
@@ -51,14 +51,14 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   //   $billing_address = new Address($cart->id_address_invoice);
   //   $delivery_address = new Address($cart->id_address_delivery);
 
-  //   $veritrans->version = Configuration::get('VB_API_VERSION');
-  //   $veritrans->environment = Configuration::get('VB_ENVIRONMENT');
-  //   $veritrans->payment_type = Configuration::get('VB_PAYMENT_TYPE') == 'vtdirect' ? Veritrans_Config::VT_DIRECT : Veritrans_Config::VT_WEB;
+  //   $veritrans->version = Configuration::get('VC_API_VERSION');
+  //   $veritrans->environment = Configuration::get('VC_ENVIRONMENT');
+  //   $veritrans->payment_type = Configuration::get('VC_PAYMENT_TYPE') == 'vtdirect' ? Veritrans_Config::VT_DIRECT : Veritrans_Config::VT_WEB;
   //   $veritrans->merchant_id = Configuration::get('VT_MERCHANT_ID');
   //   $veritrans->merchant_hash_key = Configuration::get('VT_MERCHANT_HASH');
-  //   $veritrans->client_key = Configuration::get('VB_CLIENT_KEY');
-  //   $veritrans->server_key = Configuration::get('VB_SERVER_KEY');
-  //   $veritrans->enable_3d_secure = Configuration::get('VB_3D_SECURE');
+  //   $veritrans->client_key = Configuration::get('VC_CLIENT_KEY');
+  //   $veritrans->server_key = Configuration::get('VC_SERVER_KEY');
+  //   $veritrans->enable_3d_secure = Configuration::get('VC_3D_SECURE');
   //   $veritrans->force_sanitization = true;
     
   //   // Billing Address
@@ -109,7 +109,7 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   //    } else
   //    {
   //      // use rate
-  //      $conversion_func = function($input) { return $input * intval(Configuration::get('VB_KURS')); };
+  //      $conversion_func = function($input) { return $input * intval(Configuration::get('VC_KURS')); };
   //    }
   //    foreach ($items as &$item) {
   //      $item['price'] = intval(round(call_user_func($conversion_func, $item['price'])));
@@ -120,8 +120,8 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   //   $this->module->validateOrder($cart->id, Configuration::get('VT_ORDER_STATE_ID'), $cart->getOrderTotal(true, Cart::BOTH), $this->module->displayName, NULL, $mailVars, (int)$currency->id, false, $customer->secure_key);
   //   $veritrans->order_id = $this->module->currentOrder;  
 
-  $veritrans_api_version = Configuration::get('VB_API_VERSION');
-  $veritrans_payment_method = Configuration::get('VB_PAYMENT_TYPE');
+  $veritrans_api_version = Configuration::get('VC_API_VERSION');
+  $veritrans_payment_method = Configuration::get('VC_PAYMENT_TYPE');
 
   if (array_key_exists('errors', $keys)){
     if ($keys['errors'])
@@ -134,7 +134,7 @@ class VeritransBinPromoValidationModuleFrontController extends ModuleFrontContro
   {
       if ($keys['isWarning']){          
 
-          Tools::redirectLink('index.php?fc=module&module=veritransbinpromo&controller=warning&redirlink='.$keys['redirect_url'].'&message='.$keys['message']);
+          Tools::redirectLink('index.php?fc=module&module=veritransbca&controller=warning&redirlink='.$keys['redirect_url'].'&message='.$keys['message']);
       }      
       Tools::redirectLink($keys['redirect_url']);
   } else if ($veritrans_api_version == 2 && $veritrans_payment_method == 'vtdirect')
