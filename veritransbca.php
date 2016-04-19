@@ -66,7 +66,7 @@ class VeritransBca extends PaymentModule
 
 		foreach (array('BNI', 'MANDIRI') as $bank) {
 			foreach (array(3, 6, 12) as $months) {
-				array_push($this->config_keys, 'VT_INSTALLMENTS_' . $bank . '_' . $months);
+				array_push($this->config_keys, 'VC_INSTALLMENTS_' . $bank . '_' . $months);
 			}
 		}
 
@@ -129,7 +129,7 @@ class VeritransBca extends PaymentModule
 		$order_state->unremovable = false;
 		$order_state->add();
 
-		Configuration::updateValue('VT_ORDER_STATE_ID', $order_state->id);
+		Configuration::updateValue('VC_ORDER_STATE_ID', $order_state->id);
 		Configuration::updateValue('VC_API_VERSION', 2);
 
 		if (!parent::install() || 
@@ -150,7 +150,7 @@ class VeritransBca extends PaymentModule
 	{
 		$status = true;
 
-		$veritrans_payment_waiting_order_state_id = Configuration::get('VT_ORDER_STATE_ID');
+		$veritrans_payment_waiting_order_state_id = Configuration::get('VC_ORDER_STATE_ID');
 		if ($veritrans_payment_waiting_order_state_id)
 		{
 			$order_state = new OrderStateCore($veritrans_payment_waiting_order_state_id);
@@ -635,7 +635,7 @@ class VeritransBca extends PaymentModule
 				/*	array(
 						'type' => 'checkbox',
 						'label' => 'Enable Mandiri Installments?',
-						'name' => 'VT_INSTALLMENTS',
+						'name' => 'VC_INSTALLMENTS',
 						'values' => array(
 							'query' => $installments_options['MANDIRI'],
 							'id' => 'id_option',
@@ -781,7 +781,7 @@ class VeritransBca extends PaymentModule
 		// 			array(
 		// 				'type' => 'checkbox',
 		// 				'label' => 'Enable BNI Installments?',
-		// 				'name' => 'VT_INSTALLMENTS',
+		// 				'name' => 'VC_INSTALLMENTS',
 		// 				'values' => array(
 		// 					'query' => $installments_options['BNI'],
 		// 					'id' => 'id_option',
@@ -810,7 +810,7 @@ class VeritransBca extends PaymentModule
 		// 			array(
 		// 				'type' => 'checkbox',
 		// 				'label' => 'Enable Mandiri Installments?',
-		// 				'name' => 'VT_INSTALLMENTS',
+		// 				'name' => 'VC_INSTALLMENTS',
 		// 				'values' => array(
 		// 					'query' => $installments_options['MANDIRI'],
 		// 					'id' => 'id_option',
@@ -1059,9 +1059,9 @@ class VeritransBca extends PaymentModule
 	public function getTermInstallment($name_bank){
 		$ans = array();
 		foreach ($this->config_keys as $key) {
-			if ( (strpos($key, 'VT_INSTALLMENTS_' . $name_bank ) !== FALSE) && (Configuration::get($key) == 'on') ){
+			if ( (strpos($key, 'VC_INSTALLMENTS_' . $name_bank ) !== FALSE) && (Configuration::get($key) == 'on') ){
 				
-				$term = Configuration::get('VT_INSTALLMENTS_'.$name_bank);
+				$term = Configuration::get('VC_INSTALLMENTS_'.$name_bank);
 				
 				$key_array = explode('_', $key);
 				//error_log($key);
